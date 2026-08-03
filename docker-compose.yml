@@ -1,0 +1,29 @@
+services:
+  # 1. Cấu hình cho PostgreSQL (Lưu trữ dữ liệu)
+  postgres:
+    image: postgres:15-alpine # Dùng bản Alpine cho nhẹ máy
+    container_name: quickfood-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_DB: quickfood_db
+    ports:
+      - "5432:5432" # Ánh xạ cổng máy thật : cổng trong Docker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Lưu cứng dữ liệu, tránh mất khi tắt máy
+
+  # 2. Cấu hình cho Redis (Bộ nhớ đệm / Cache)
+  redis:
+    image: redis:7-alpine
+    container_name: quickfood-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+# Khai báo các ổ đĩa ảo (volumes) để lưu trữ
+volumes:
+  postgres_data:
+  redis_data:
