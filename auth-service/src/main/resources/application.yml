@@ -1,27 +1,14 @@
 server:
-  port: 8081 # Chạy ở cổng 8081 để không đụng với Gateway (8080)
+  port: 8081
 
 spring:
   application:
     name: auth-service
-  
-  # Cấu hình kết nối PostgreSQL
-  datasource:
-    url: jdbc:postgresql://localhost:5432/quickfood_db
-    username: root
-    password: rootpassword
-    driver-class-name: org.postgresql.Driver
-  
-  # Cấu hình JPA (Hibernate)
-  jpa:
-    hibernate:
-      ddl-auto: update # Tự động tạo/cập nhật bảng trong DB dựa theo code Java
-    show-sql: true # Hiển thị câu lệnh SQL ra console để dễ debug
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+  profiles:
+    active: dev
+
 app:
   jwt:
-    secret: 0f8a4f15353a87ff5c46b36f4e1df6782a8c1194651d8021dc57c64bcad7b7c1
+    secret: ${JWT_SECRET}
     expiration-in-ms: 86400000
+    refresh-expiration-in-ms: 604800000
