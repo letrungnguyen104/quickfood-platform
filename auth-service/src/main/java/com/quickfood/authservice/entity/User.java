@@ -1,5 +1,7 @@
 package com.quickfood.authservice.entity;
 
+import com.quickfood.authservice.enums.AuthProvider;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,10 +18,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
 
     @Column(unique = true, nullable = false)
@@ -27,4 +29,26 @@ public class User {
 
     @Column(nullable = false)
     private String role;
+
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
+    @Builder.Default
+    @Column(name = "is_verified", nullable = false)
+    private boolean isVerified = false;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private String status = "ACTIVE";
+
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    @Column(nullable = false)
+    private AuthProvider provider = AuthProvider.LOCAL;
+
+    @Column(name = "provider_id")
+    private String providerId;
 }
