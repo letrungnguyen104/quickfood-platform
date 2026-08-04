@@ -2,7 +2,9 @@ package com.quickfood.authservice.controller;
 
 import com.quickfood.authservice.dto.common.ApiResponse;
 import com.quickfood.authservice.dto.request.LoginRequest;
+import com.quickfood.authservice.dto.request.RefreshTokenRequest;
 import com.quickfood.authservice.dto.request.RegisterRequest;
+import com.quickfood.authservice.dto.request.VerifyOtpRequest;
 import com.quickfood.authservice.dto.response.AuthResponse;
 import com.quickfood.authservice.service.AuthService;
 import jakarta.validation.Valid;
@@ -25,6 +27,12 @@ public class AuthController {
         return ResponseEntity.ok(ApiResponse.success("Account registered successfully!", null));
     }
 
+    @PostMapping("/verify-otp")
+    public ResponseEntity<ApiResponse<Void>> verifyOtp(@Valid @RequestBody VerifyOtpRequest request) {
+        authService.verifyOtp(request);
+        return ResponseEntity.ok(ApiResponse.success("Account verified successfully!", null));
+    }
+
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse authResponse = authService.login(request);
@@ -37,6 +45,12 @@ public class AuthController {
         String currentUsername = authentication.getName();
         
         return ResponseEntity.ok(ApiResponse.success("Access granted!", "Current user is: " + currentUsername));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<ApiResponse<AuthResponse>> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
+        AuthResponse authResponse = authService.refreshToken(request);
+        return ResponseEntity.ok(ApiResponse.success("Token refreshed successfully!", authResponse));
     }
 
 }
