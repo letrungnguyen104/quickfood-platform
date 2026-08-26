@@ -10,4 +10,5 @@ public class UpdateMenuItemRequest {
     private BigDecimal price;
     private String imageUrl;
     private Boolean isAvailable;
+    private Boolean isBestSeller;
 }

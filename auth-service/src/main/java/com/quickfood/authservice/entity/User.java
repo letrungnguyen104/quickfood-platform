@@ -1,6 +1,7 @@
 package com.quickfood.authservice.entity;
 
 import com.quickfood.authservice.enums.AuthProvider;
+import com.quickfood.authservice.enums.Role;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,8 +28,10 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
     @Column(nullable = false)
-    private String role;
+    private Role role = Role.ROLE_CUSTOMER;
 
     @Column(name = "full_name")
     private String fullName;

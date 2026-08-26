@@ -18,4 +18,5 @@ public class MenuItemRequest {
     
     private String imageUrl;
     private Boolean isAvailable;
+    private Boolean isBestSeller;
 }

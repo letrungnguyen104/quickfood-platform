@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quickfood.restaurantservice.dto.common.ApiResponse;
@@ -50,6 +51,11 @@ public class RestaurantController {
             @Valid @RequestBody UpdateRestaurantRequest request) {
         RestaurantResponse response = restaurantService.updateRestaurant(id, request);
         return ResponseEntity.ok(ApiResponse.success("Restaurant updated successfully", response));
+    }
+
+    @GetMapping("/my-restaurant")
+    public ResponseEntity<ApiResponse<RestaurantResponse>> getMyRestaurant(@RequestParam String email) {
+        return ResponseEntity.ok(ApiResponse.success(restaurantService.getRestaurantByOwnerEmail(email)));
     }
 
 }

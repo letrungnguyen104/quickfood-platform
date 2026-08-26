@@ -19,7 +19,8 @@ public enum ErrorCode {
     UNAUTHENTICATED(HttpStatus.UNAUTHORIZED, "AUTH_005", "Unauthenticated"),
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "AUTH_006", "Token has expired"),
     TOKEN_INVALID(HttpStatus.UNAUTHORIZED, "AUTH_007", "Invalid or tampered token"),
-    REFRESH_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "AUTH_008", "Refresh token is invalid or expired");
+    REFRESH_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "AUTH_008", "Refresh token is invalid or expired"),
+    INVALIDE_GOOGLE_TOKEN(HttpStatus.UNAUTHORIZED, "AUTH_009", "Invalid Google token");
 
     private final HttpStatus httpStatus;
     private final String code;

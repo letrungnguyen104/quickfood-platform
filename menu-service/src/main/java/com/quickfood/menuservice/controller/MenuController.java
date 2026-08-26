@@ -1,7 +1,8 @@
 package com.quickfood.menuservice.controller;
 
 import com.quickfood.menuservice.dto.common.ApiResponse;
-import com.quickfood.menuservice.dto.request.CategoryRequest;
+import com.quickfood.menuservice.dto.request.CreateCategoryRequest;
+import com.quickfood.menuservice.dto.request.UpdateCategoryRequest;
 import com.quickfood.menuservice.dto.request.MenuItemRequest;
 import com.quickfood.menuservice.dto.request.UpdateMenuItemRequest;
 import com.quickfood.menuservice.dto.response.CategoryResponse;
@@ -25,13 +26,26 @@ public class MenuController {
 
     // --- CATEGORY APIs ---
     @PostMapping("/categories")
-    public ResponseEntity<ApiResponse<CategoryResponse>> createCategory(@Valid @RequestBody CategoryRequest request) {
+    public ResponseEntity<ApiResponse<CategoryResponse>> createCategory(@Valid @RequestBody CreateCategoryRequest request) {
         return ResponseEntity.ok(ApiResponse.success(categoryService.createCategory(request)));
     }
 
     @GetMapping("/restaurant/{restaurantId}")
     public ResponseEntity<ApiResponse<List<CategoryResponse>>> getMenuByRestaurant(@PathVariable Long restaurantId) {
         return ResponseEntity.ok(ApiResponse.success(categoryService.getMenuByRestaurant(restaurantId)));
+    }
+
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<ApiResponse<CategoryResponse>> updateCategory(
+            @PathVariable Long id, 
+            @Valid @RequestBody UpdateCategoryRequest request) {
+        return ResponseEntity.ok(ApiResponse.success(categoryService.updateCategory(id, request)));
+    }
+
+    @DeleteMapping("/categories/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+        return ResponseEntity.ok(ApiResponse.success("Category deleted successfully!", null));
     }
 
     // --- MENU ITEM APIs ---
@@ -47,5 +61,11 @@ public class MenuController {
             @PathVariable Long itemId,
             @Valid @RequestBody UpdateMenuItemRequest request) {
         return ResponseEntity.ok(ApiResponse.success(menuItemService.updateMenuItem(itemId, request)));
+    }
+
+    @DeleteMapping("/items/{itemId}")
+    public ResponseEntity<ApiResponse<Void>> deleteItem(@PathVariable Long itemId) {
+        menuItemService.deleteMenuItem(itemId);
+        return ResponseEntity.ok(ApiResponse.success("Item deleted successfully!", null));
     }
 }

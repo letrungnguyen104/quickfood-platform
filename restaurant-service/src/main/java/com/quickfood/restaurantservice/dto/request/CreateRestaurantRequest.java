@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalTime;
+import java.util.Set;
 
 @Data
 public class CreateRestaurantRequest {
@@ -11,6 +12,8 @@ public class CreateRestaurantRequest {
     private String name;
 
     private String description;
+    @NotBlank(message = "Owner email must not be blank")
+    private String ownerEmail;
     private String coverImageUrl;
 
     @NotBlank(message = "Address must not be blank")
@@ -21,4 +24,7 @@ public class CreateRestaurantRequest {
     private String contactPhone;
     private LocalTime openTime;
     private LocalTime closeTime;
+    private String deliveryTime;
+    private Double deliveryFee;
+    private Set<Long> tagIds;
 }

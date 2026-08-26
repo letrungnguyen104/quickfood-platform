@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Set;
+
+import com.quickfood.restaurantservice.enums.RestaurantStatus;
 
 @Data
 @Builder
@@ -16,6 +19,7 @@ public class RestaurantResponse {
     private Long id;
     private String name;
     private String description;
+    private String ownerEmail;
     private String coverImageUrl;
     private String address;
     private Double latitude;
@@ -25,6 +29,9 @@ public class RestaurantResponse {
     private LocalTime closeTime;
     private Double averageRating;
     private Integer totalReviews;
-    private String status;
+    private RestaurantStatus status;
+    private String deliveryTime;
+    private Double deliveryFee;
+    private Set<String> tags;
     private LocalDateTime createdAt;
 }
