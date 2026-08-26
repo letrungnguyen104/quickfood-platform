@@ -30,7 +30,16 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refresh", "/api/auth/verify-otp").permitAll()
+                .requestMatchers(
+                    "/api/auth/register", 
+                    "/api/auth/login", 
+                    "/api/auth/refresh", 
+                    "/api/auth/verify-otp", 
+                    "/api/auth/resend-otp",
+                    "/api/auth/google",
+                    "/api/auth/forgot-password", 
+                    "/api/auth/reset-password"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

@@ -5,6 +5,10 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.quickfood.restaurantservice.enums.RestaurantStatus;
 
 @Entity
 @Table(name = "restaurants")
@@ -24,6 +28,9 @@ public class Restaurant {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(name = "owner_email")
+    private String ownerEmail;
 
     @Column(name = "cover_image_url")
     private String coverImageUrl;
@@ -54,15 +61,31 @@ public class Restaurant {
     @Column(name = "total_reviews")
     private Integer totalReviews = 0;
 
+    @Enumerated(EnumType.STRING)
     @Builder.Default
-    @Column(nullable = false)
-    private String status = "PENDING";
+    @Column(nullable = false, length = 20)
+    private RestaurantStatus status = RestaurantStatus.PENDING;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "delivery_time", length = 20)
+    private String deliveryTime;
+
+    @Builder.Default
+    @Column(name = "delivery_fee")
+    private Double deliveryFee = 0.0;
+
+    @ManyToMany
+    @JoinTable(
+        name = "restaurant_tags",
+        joinColumns = @JoinColumn(name = "restaurant_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {

@@ -35,5 +35,9 @@ public class MenuItem {
 
     @Column(name = "is_available")
     @Builder.Default
-    private boolean isAvailable = true;
+    private Boolean isAvailable = true;
+
+    @Column(name = "is_best_seller")
+    @Builder.Default
+    private Boolean isBestSeller = false;
 }

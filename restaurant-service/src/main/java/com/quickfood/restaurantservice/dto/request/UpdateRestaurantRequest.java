@@ -2,6 +2,9 @@ package com.quickfood.restaurantservice.dto.request;
 
 import lombok.Data;
 import java.time.LocalTime;
+import java.util.Set;
+
+import com.quickfood.restaurantservice.enums.RestaurantStatus;
 
 @Data
 public class UpdateRestaurantRequest {
@@ -14,5 +17,8 @@ public class UpdateRestaurantRequest {
     private String contactPhone;
     private LocalTime openTime;
     private LocalTime closeTime;
-    private String status;
+    private RestaurantStatus status;
+    private String deliveryTime;
+    private Double deliveryFee;
+    private Set<Long> tagIds;
 }

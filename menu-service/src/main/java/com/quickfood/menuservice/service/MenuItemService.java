@@ -29,7 +29,8 @@ public class MenuItemService {
 
         MenuItem menuItem = menuMapper.toMenuItem(request);
         menuItem.setCategory(category);
-        if (request.getIsAvailable() == null) menuItem.setAvailable(true);
+        if (request.getIsAvailable() == null) menuItem.setIsAvailable(true);
+        if (request.getIsBestSeller() == null) menuItem.setIsBestSeller(false); 
 
         MenuItem saved = menuItemRepository.save(menuItem);
         return menuMapper.toMenuItemResponse(saved);
@@ -39,14 +40,23 @@ public class MenuItemService {
     public MenuItemResponse updateMenuItem(Long itemId, UpdateMenuItemRequest request) {
         MenuItem menuItem = menuItemRepository.findById(itemId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.MENU_ITEM_NOT_FOUND));
-
         menuMapper.updateMenuItemFromDto(request, menuItem);
-        
         if (request.getIsAvailable() != null) {
-            menuItem.setAvailable(request.getIsAvailable());
+            menuItem.setIsAvailable(request.getIsAvailable());
+        }
+        if (request.getIsBestSeller() != null) {
+            menuItem.setIsBestSeller(request.getIsBestSeller());
         }
 
         MenuItem updated = menuItemRepository.save(menuItem);
         return menuMapper.toMenuItemResponse(updated);
+    }
+
+    @Transactional
+    public void deleteMenuItem(Long id) {
+        if (!menuItemRepository.existsById(id)) {
+            throw new BusinessException(ErrorCode.MENU_ITEM_NOT_FOUND);
+        }
+        menuItemRepository.deleteById(id);
     }
 }

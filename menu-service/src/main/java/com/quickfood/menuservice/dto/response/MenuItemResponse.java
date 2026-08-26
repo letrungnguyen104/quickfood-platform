@@ -12,4 +12,5 @@ public class MenuItemResponse {
     private BigDecimal price;
     private String imageUrl;
     private boolean isAvailable;
+    private boolean isBestSeller;
 }

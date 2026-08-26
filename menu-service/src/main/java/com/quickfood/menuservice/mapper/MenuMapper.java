@@ -1,6 +1,7 @@
 package com.quickfood.menuservice.mapper;
 
-import com.quickfood.menuservice.dto.request.CategoryRequest;
+import com.quickfood.menuservice.dto.request.CreateCategoryRequest;
+import com.quickfood.menuservice.dto.request.UpdateCategoryRequest;
 import com.quickfood.menuservice.dto.request.MenuItemRequest;
 import com.quickfood.menuservice.dto.request.UpdateMenuItemRequest;
 import com.quickfood.menuservice.dto.response.CategoryResponse;
@@ -19,7 +20,13 @@ public interface MenuMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "menuItems", ignore = true)
-    Category toCategory(CategoryRequest request);
+    Category toCategory(CreateCategoryRequest request);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "restaurantId", ignore = true)
+    @Mapping(target = "menuItems", ignore = true)
+    void updateCategoryFromDto(UpdateCategoryRequest request, @MappingTarget Category entity);
 
     MenuItemResponse toMenuItemResponse(MenuItem entity);
 
