@@ -15,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/menus")
@@ -54,6 +57,11 @@ public class MenuController {
             @PathVariable Long categoryId,
             @Valid @RequestBody MenuItemRequest request) {
         return ResponseEntity.ok(ApiResponse.success(menuItemService.addMenuItem(categoryId, request)));
+    }
+
+    @GetMapping("/items/{id}")
+    public ResponseEntity<ApiResponse<MenuItemResponse>> getMenuItem(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(menuItemService.getMenuItemById(id)));
     }
 
     @PutMapping("/items/{itemId}")

@@ -104,6 +104,13 @@ public class AuthService {
         return AuthResponse.builder()
                 .token(accessToken)
                 .refreshToken(refreshToken)
+                .user(AuthResponse.UserInfo.builder()
+                    .email(user.getEmail())
+                    .username(user.getUsername())
+                    .fullName(user.getFullName())
+                    .avatarUrl(user.getAvatarUrl())
+                    .role(user.getRole().name())
+                    .build())
                 .build();
     }
 
@@ -179,6 +186,13 @@ public class AuthService {
             return AuthResponse.builder()
                     .token(accessToken)
                     .refreshToken(refreshToken)
+                    .user(AuthResponse.UserInfo.builder()
+                        .email(user.getEmail())
+                        .username(user.getUsername())
+                        .fullName(user.getFullName())
+                        .avatarUrl(user.getAvatarUrl())
+                        .role(user.getRole().name())
+                        .build())
                     .build();
 
         } catch (BusinessException e) {
