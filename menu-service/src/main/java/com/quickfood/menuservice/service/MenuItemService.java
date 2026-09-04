@@ -59,4 +59,12 @@ public class MenuItemService {
         }
         menuItemRepository.deleteById(id);
     }
+
+    @Transactional
+    public MenuItemResponse getMenuItemById(Long itemId) {
+        MenuItem menuItem = menuItemRepository.findById(itemId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.MENU_ITEM_NOT_FOUND));
+        return menuMapper.toMenuItemResponse(menuItem);
+    }
+
 }

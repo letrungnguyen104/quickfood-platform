@@ -32,6 +32,11 @@ spring:
           predicates:
             - Path=/api/media/**
 
+        - id: order-service
+          uri: http://localhost:8086
+          predicates:
+            - Path=/api/order/**
+
       globalcors:
         cors-configurations:
           '[/**]':
